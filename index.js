@@ -10,11 +10,11 @@ fetch("https://rawcdn.githack.com/akabab/superhero-api/0.2.0/api/all.json")
     superheroes = data;
     filteredHeroes = superheroes;
     renderTable();
-  })
+  }) 
   .catch((err) => {
     console.log(err);
   });
-  
+
 console.log(superheroes);
 function formatPowerstats(powerstats) {
   return Object.entries(powerstats)
