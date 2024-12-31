@@ -32,7 +32,6 @@ function updateSearch() {
   const query = searchInput.value.toLowerCase();
 
   filteredHeroes = superheroes.filter((hero) => {
-    
     let valeur = "";
 
     // Get the value of the selected field
@@ -58,10 +57,10 @@ function updateSearch() {
       default:
         valeur = "";
     }
-    console.log('valeu :','/',valeur,'/', valeur.toLowerCase().includes(query),'/',query)
+    // console.log('valeu :','/',valeur,'/', valeur.toLowerCase().includes(query),'/',query)
     return valeur && valeur.toLowerCase().includes(query);
-    console.log(filteredHeroes,'after filter :')
   });
+  console.log(filteredHeroes, "after filter :");
 
   currentPage = 1;
   startaffiche();
@@ -75,11 +74,9 @@ function updatePageSize() {
   currentPage = 1;
   startaffiche();
 }
-
 function startaffiche() {
   const tbody = document.querySelector("#superheroTable tbody");
   tbody.innerHTML = "";
-
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
   const paginatedHeroes = filteredHeroes.slice(start, end);

@@ -41,7 +41,7 @@ th:hover {
     display: none;
 }
 
-#detailView {
+/* #detailView {
     background-color: white;
     padding: 20px;
     border: 1px solid #ddd;
@@ -57,7 +57,7 @@ th:hover {
 #detailView img {
     width: 100px;
     height: 100px;
-}
+} */
 
 h3 {
     text-decoration: underline;  
