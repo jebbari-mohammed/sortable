@@ -60,7 +60,7 @@ function updateSearch() {
     // console.log('valeu :','/',valeur,'/', valeur.toLowerCase().includes(query),'/',query)
     return valeur && valeur.toLowerCase().includes(query);
   });
-  console.log(filteredHeroes, "after filter :");
+  // console.log(filteredHeroes, "after filter :");
 
   currentPage = 1;
   startaffiche();
