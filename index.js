@@ -5,15 +5,16 @@ let pageSize = 20;
 let sortOrder = { column: "name", direction: "asc" };
 
 fetch("https://rawcdn.githack.com/akabab/superhero-api/0.2.0/api/all.json")
-  .then(function (response) {
-    return response.json();
+  .then((response) => response.json())
+  .then((data) => {
+    superheroes = data;
+    filteredHeroes = superheroes;
+    renderTable();
   })
-  .then(function (data) {
-    superheroes = data; // Store the data in the superheroes variable
-    filteredHeroes = superheroes; // Set filteredHeroes to the same data
-    renderTable(); // Call renderTable to display the data
+  .catch((err) => {
+    console.log(err);
   });
-
+  
 console.log(superheroes);
 function formatPowerstats(powerstats) {
   return Object.entries(powerstats)
