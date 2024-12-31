@@ -11,13 +11,12 @@ fetch("https://rawcdn.githack.com/akabab/superhero-api/0.2.0/api/all.json")
     filteredHeroes = superheroes;
     renderTable();
   });
-
+console.log(superheroes);
 function formatPowerstats(powerstats) {
   return Object.entries(powerstats)
     .map(([key, value]) => `${key}: ${value}`)
     .join(", ");
 }
-
 const searchInput = document.getElementById("search");
 const pageSizeSelect = document.getElementById("pageSize");
 
