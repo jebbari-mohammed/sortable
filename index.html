@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superhero Data</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <h1>Superhero Data Organizer</h1>
+        <div class="controls">
+            <label for="searchField">Search by:</label>
+            <select id="searchField">
+                <option value="name">Name</option>
+                <option value="fullName">Full Name</option>
+                <option value="race">Race</option>
+                <option value="gender">Gender</option>
+                <option value="placeOfBirth">Place of Birth</option>
+                <option value="alignment">Alignment</option>
+            </select>
+            <input type="text" id="search" placeholder="Search...">
+            <label for="pageSize">Results per page:</label>
+            <select id="pageSize">
+                <option value="10">10</option>
+                <option value="20" selected>20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="all">All</option>
+            </select>
+        </div>
+    </header>
+    <main>
+        <table id="superheroTable">
+            <thead>
+                <tr>
+                    <th data-column="icon">Icon</th>
+                    <th data-column="name">Name</th>
+                    <th data-column="fullName">Full Name</th>
+                    <th data-column="powerstats">Powerstats</th>
+                    <th data-column="race">Race</th>
+                    <th data-column="gender">Gender</th>
+                    <th data-column="height">Height</th>
+                    <th data-column="weight">Weight</th>
+                    <th data-column="placeOfBirth">Place Of Birth</th>
+                    <th data-column="alignment">Alignment</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div id="paginationControls"></div>
+        <div id="detailView" class="hidden"></div>
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>
