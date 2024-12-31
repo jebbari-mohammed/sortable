@@ -9,18 +9,18 @@ fetch("https://rawcdn.githack.com/akabab/superhero-api/0.2.0/api/all.json")
   .then((data) => {
     superheroes = data;
     filteredHeroes = superheroes;
-    renderTable();
-  }) 
+    startaffiche();
+  })
   .catch((err) => {
     console.log(err);
   });
 
-console.log(superheroes);
 function formatPowerstats(powerstats) {
   return Object.entries(powerstats)
     .map(([key, value]) => `${key}: ${value}`)
     .join(", ");
 }
+
 const searchInput = document.getElementById("search");
 const pageSizeSelect = document.getElementById("pageSize");
 
@@ -28,41 +28,43 @@ searchInput.addEventListener("input", updateSearch);
 pageSizeSelect.addEventListener("change", updatePageSize);
 
 function updateSearch() {
-  const searchField = document.getElementById("searchField").value; // Get the selected field to search by
-  const query = searchInput.value.toLowerCase(); // Convert the input value to lowercase
+  const chose = document.getElementById("chose").value;
+  const query = searchInput.value.toLowerCase();
 
   filteredHeroes = superheroes.filter((hero) => {
-    let fieldValue = "";
+    
+    let valeur = "";
 
     // Get the value of the selected field
-    switch (searchField) {
+    switch (chose) {
       case "name":
-        fieldValue = hero.name;
+        valeur = hero.name;
         break;
       case "fullName":
-        fieldValue = hero.biography.fullName;
+        valeur = hero.biography.fullName;
         break;
       case "race":
-        fieldValue = hero.appearance.race;
+        valeur = hero.appearance.race;
         break;
       case "gender":
-        fieldValue = hero.appearance.gender;
+        valeur = hero.appearance.gender;
         break;
       case "placeOfBirth":
-        fieldValue = hero.biography.placeOfBirth;
+        valeur = hero.biography.placeOfBirth;
         break;
       case "alignment":
-        fieldValue = hero.biography.alignment;
+        valeur = hero.biography.alignment;
         break;
       default:
-        fieldValue = "";
+        valeur = "";
     }
-
-    return fieldValue && fieldValue.toLowerCase().includes(query);
+    console.log('valeu :','/',valeur,'/', valeur.toLowerCase().includes(query),'/',query)
+    return valeur && valeur.toLowerCase().includes(query);
+    console.log(filteredHeroes,'after filter :')
   });
 
   currentPage = 1;
-  renderTable();
+  startaffiche();
 }
 
 function updatePageSize() {
@@ -71,10 +73,10 @@ function updatePageSize() {
       ? filteredHeroes.length
       : parseInt(pageSizeSelect.value, 10);
   currentPage = 1;
-  renderTable();
+  startaffiche();
 }
 
-function renderTable() {
+function startaffiche() {
   const tbody = document.querySelector("#superheroTable tbody");
   tbody.innerHTML = "";
 
@@ -116,70 +118,70 @@ function sortTable(column) {
   sortOrder = { column, direction };
 
   filteredHeroes.sort((a, b) => {
-    let valA, valB;
+    let argA, argB;
 
     switch (column) {
       case "name":
-        valA = a.name || "-";
-        valB = b.name || "-";
+        argA = a.name || "-";
+        argB = b.name || "-";
         break;
       case "fullName":
-        valA = a.biography.fullName || "-";
-        valB = b.biography.fullName || "-";
+        argA = a.biography.fullName || "-";
+        argB = b.biography.fullName || "-";
         break;
       case "gender":
-        valA = a.appearance.gender || "-";
-        valB = b.appearance.gender || "-";
+        argA = a.appearance.gender || "-";
+        argB = b.appearance.gender || "-";
         break;
       case "alignment":
-        valA = a.biography.alignment || "-";
-        valB = b.biography.alignment || "-";
+        argA = a.biography.alignment || "-";
+        argB = b.biography.alignment || "-";
         break;
       case "placeOfBirth":
-        valA = a.biography.placeOfBirth || "-";
-        valB = b.biography.placeOfBirth || "-";
+        argA = a.biography.placeOfBirth || "-";
+        argB = b.biography.placeOfBirth || "-";
         break;
       case "race":
-        valA = a.appearance.race || "-";
-        valB = b.appearance.race || "-";
+        argA = a.appearance.race || "-";
+        argB = b.appearance.race || "-";
         break;
       case "height":
-        valA = convertHeightToCm(a.appearance.height);
-        valB = convertHeightToCm(b.appearance.height);
+        argA = convertHeightToCm(a.appearance.height);
+        argB = convertHeightToCm(b.appearance.height);
         break;
       case "weight":
-        valA = convertWeightToKg(a.appearance.weight);
-        valB = convertWeightToKg(b.appearance.weight);
+        argA = convertWeightToKg(a.appearance.weight);
+        argB = convertWeightToKg(b.appearance.weight);
         break;
       case "powerstats":
-        valA = Object.values(a.powerstats).reduce(
+        argA = Object.values(a.powerstats).reduce(
           (sum, curr) => sum + (curr || 0),
           0
         );
-        valB = Object.values(b.powerstats).reduce(
+        argB = Object.values(b.powerstats).reduce(
           (sum, curr) => sum + (curr || 0),
           0
         );
         break;
       default:
-        valA = a[column] || "-";
-        valB = b[column] || "-";
+        argA = a[column] || "-";
+        argB = b[column] || "-";
     }
 
     // Handle missing values to always be sorted last
-    const isMissingA = valA === "-" || valA === "" || valA === 0;
-    const isMissingB = valB === "-" || valB === "" || valB === 0;
+    const isMissingA = argA === "-" || argA === "" || argA === 0;
+    const isMissingB = argB === "-" || argB === "" || argB === 0;
 
     if (isMissingA && !isMissingB) return 1;
     if (!isMissingA && isMissingB) return -1;
 
     // Perform the comparison based on the sort direction
-    if (valA < valB) return direction === "asc" ? -1 : 1;
-    if (valA > valB) return direction === "asc" ? 1 : -1;
+    if (argA < argB) return direction === "asc" ? -1 : 1;
+    if (argA > argB) return direction === "asc" ? 1 : -1;
     return 0;
   });
 
-  renderTable();
+  startaffiche();
 }
 
 function showDetailView(hero) {
@@ -245,7 +247,7 @@ function updatePaginationControls() {
     button.classList.toggle("active", i === currentPage);
     button.addEventListener("click", () => {
       currentPage = i;
-      renderTable();
+      startaffiche();
     });
     paginationControls.appendChild(button);
   }
